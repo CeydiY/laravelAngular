@@ -2,28 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Client;
-use http\Env\Response;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Client;
+
 
 class ClientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $clients = Post::all();
-        return PostResource::collection($clients);
+        //
+    }
+    public function getAll(){
+        $data = Client::get();
+        return response()->json($data, 200);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $data['firstName'] = $request['firstName'];
+        $data['lastName'] = $request['lastName'];
+        $data['name'] = $request['name'];
+        $data['age'] = $request['age'];
+        $data['address'] = $request['address'];
+        $data['gender'] = $request['gender'];
+        $data['country'] = $request['country'];
+        $data['birthdate'] = $request['birthdate'];
+        $data['username'] = $request['username'];
+        $data['email'] = $request['email'];
+        $data['password'] = $request['password'];
+        Client::create($data);
+        return response()->json([
+            'message' => "Successfully created",
+            'success' => true
+        ], 200);
     }
 
     /**
@@ -68,41 +83,40 @@ class ClientController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Client $client
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Client $client)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'firstName' => 'required',
-            'lastName' => 'required',
-            'name' => 'required',
-            'age' => 'required',
-            'address' => 'required',
-            'gender' => 'required',
-            'country' => 'required',
-            'birthdate' => 'required',
-            'username' => 'required',
-            'email'=> 'required',
-            'password'=> 'required',
-        ]);
-        $client->update($request->all());
+        $data['firstName'] = $request['firstName'];
+        $data['lastName'] = $request['lastName'];
+        $data['name'] = $request['name'];
+        $data['age'] = $request['age'];
+        $data['address'] = $request['address'];
+        $data['gender'] = $request['gender'];
+        $data['country'] = $request['country'];
+        $data['birthdate'] = $request['birthdate'];
+        $data['username'] = $request['username'];
+        $data['email'] = $request['email'];
+        $data['password'] = $request['password'];
 
-        return new PostResource($client);
+        Client::find($id)->update($data);
+        return response()->json([
+            'message' => "Successfully updated",
+            'success' => true
+        ], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param \App\Models\Client $client
-     * @return \Illuminate\\Http\Response
-     */
     public function destroy(Client $client)
     {
-        $client->delete();
-
-        return response(null, 204);
+        //
+    }
+    public function delete($id){
+        $res = Client::find($id)->delete();
+        return response()->json([
+            'message' => "Successfully deleted",
+            'success' => true
+        ], 200);
+    }
+    public function get($id){
+        $data = Client::find($id);
+        return response()->json($data, 200);
     }
 }

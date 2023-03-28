@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('firstName');
             $table->string('lastName');
             $table->string('name');
@@ -21,9 +22,7 @@ return new class extends Migration
             $table->string('gender');
             $table->string('country');
             $table->date('birthdate');
-            $table->string('username');
-            $table->string('email');
-            $table->string('password');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,4 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::apiResource('posts',\App\Http\Controllers\ClientController::class);
+Route::prefix('client')->group(function () {
+    Route::get('/',[ ClientController::class, 'getAll']);
+    Route::post('/',[ ClientController::class, 'create']);
+    Route::delete('/{id}',[ ClientController::class, 'delete']);
+    Route::get('/{id}',[ ClientController::class, 'get']);
+    Route::put('/{id}',[ ClientController::class, 'update']);
+});
