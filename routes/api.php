@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::put('v1/clients/{id}',[ClientV1::class,'update']);
-Route::post('v1/clients/{id}',[ClientV1::class,'store']);
+Route::post('v1/clients',[ClientV1::class,'store']);
 
 Route::apiResource('v1/clients',ClientV1::class)
     ->only(['index','show','destroy'])

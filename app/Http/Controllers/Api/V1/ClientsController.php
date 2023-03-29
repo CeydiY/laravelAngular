@@ -25,20 +25,18 @@ class ClientsController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'firstName' => 'required',
-            'lastName' => 'required',
-            'name' => 'required',
-            'age' => 'required',
-            'address' => 'required',
-            'gender' => 'required',
-            'country' => 'required',
-            'birthdate' => 'required',
-            'username' => 'required',
-            'email'=> 'required',
-            'password'=> 'required',
-        ]);
-        Client::create($request->all());
+        $client = new Client();
+        $client->user_id = $request->user_id;
+        $client->firstName = $request->firstName;
+        $client->lastName = $request->lastName;
+        $client->name = $request->name;
+        $client->age = $request->age;
+        $client->address = $request->address;
+        $client->gender = $request->gender;
+        $client->country = $request->country;
+        $client->birthdate = $request->birthdate;
+        $client->save();
+
         return response()->json([
             'message' => "Created",
             'success' => true
@@ -63,6 +61,7 @@ class ClientsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $data['user_id'] = $request['user_id'];
         $data['firstName'] = $request['firstName'];
         $data['lastName'] = $request['lastName'];
         $data['name'] = $request['name'];
@@ -71,9 +70,6 @@ class ClientsController extends Controller
         $data['gender'] = $request['gender'];
         $data['country'] = $request['country'];
         $data['birthdate'] = $request['birthdate'];
-        $data['username'] = $request['username'];
-        $data['email'] = $request['email'];
-        $data['password'] = $request['password'];
 
         Client::find($id)->update($data);
         return response()->json([
