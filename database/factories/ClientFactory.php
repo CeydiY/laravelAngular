@@ -17,15 +17,15 @@ class ClientFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' =>rand(1,10),
-            'firstName' => $this->faker->text(),
-            'lastName'=> $this->faker->text(),
-            'name' => $this->faker->text(),
+            'user_id' =>rand(1,20),
+            'firstName' => $this->faker->firstName(),
+            'lastName'=> $this->faker->lastName(),
+            'name' => $this->faker->name(),
             'age' => rand(18,66),
-            'address' => $this->faker->text(),
-            'gender' => $this->faker->text(),
-            'country' => $this->faker->text(),
-            'birthdate' => $this->faker->text(),
+            'address' => $this->faker->address(),
+            'gender' => $this->faker->text(maxNbChars: 5),
+            'country' => $this->faker->country(),
+            'birthdate' => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
         ];
     }
 }
