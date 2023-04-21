@@ -26,7 +26,6 @@ class ClientsController extends Controller
     public function store(Request $request)
     {
         $client = new Client();
-        $client->user_id = $request->user_id;
         $client->firstName = $request->firstName;
         $client->lastName = $request->lastName;
         $client->name = $request->name;
@@ -35,6 +34,9 @@ class ClientsController extends Controller
         $client->gender = $request->gender;
         $client->country = $request->country;
         $client->birthdate = $request->birthdate;
+        $client->username = $request->username;
+        $client->email = $request->email;
+        $client->password = $request->password;
         $client->save();
 
         return response()->json([
@@ -61,15 +63,11 @@ class ClientsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data['user_id'] = $request['user_id'];
         $data['firstName'] = $request['firstName'];
         $data['lastName'] = $request['lastName'];
         $data['name'] = $request['name'];
-        $data['age'] = $request['age'];
         $data['address'] = $request['address'];
-        $data['gender'] = $request['gender'];
-        $data['country'] = $request['country'];
-        $data['birthdate'] = $request['birthdate'];
+
 
         Client::find($id)->update($data);
         return response()->json([

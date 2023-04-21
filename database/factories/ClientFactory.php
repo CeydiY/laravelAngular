@@ -26,6 +26,9 @@ class ClientFactory extends Factory
             'gender' => $this->faker->text(maxNbChars: 5),
             'country' => $this->faker->country(),
             'birthdate' => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
+            'username' => $this->faker->name(),
+            'email' => fake()->unique()->safeEmail(),
+            'password' => rand(18,1000),
         ];
     }
 }

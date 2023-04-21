@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('gender');
             $table->string('country');
             $table->date('birthdate');
+            $table->string('username');
+            $table->string('email');
+            $table->string('password');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });

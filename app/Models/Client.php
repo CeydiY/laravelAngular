@@ -19,6 +19,9 @@ class Client extends Model
         'gender',
         'country',
         'birthdate',
+        'username',
+        'email',
+        'password'
     ];
     public function getDescriptionAtribute($value){
         return substr($value, 1, 120);
