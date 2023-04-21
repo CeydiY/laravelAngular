@@ -23,6 +23,9 @@ class ClientResource extends JsonResource
             'gender' => $this->gender,
             'country' => $this->country,
             'birthdate' => $this->birthdate,
+            'username' => $this->username,
+            'email' => $this->email,
+            'password' => $this->password,
         ];
         //return parent::toArray($request);
     }

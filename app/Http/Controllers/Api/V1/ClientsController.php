@@ -63,34 +63,44 @@ class ClientsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data['firstName'] = $request['firstName'];
-        $data['lastName'] = $request['lastName'];
-        $data['name'] = $request['name'];
-        $data['address'] = $request['address'];
+        $post = Client::where('username', '=', $id)->update($request->all());
 
+        if ($post === 0) {
+            return response()->json([
+                'status' => true,
+                'message' => "Client not found!"
+            ], 400);
+        } else {
+            return response()->json([
+                'status' => true,
+                'message' => "Client modified successfully!",
+                'post' => $post
+            ], 201);
+        }
 
-        Client::find($id)->update($data);
-        return response()->json([
-            'message' => "Successfully updated",
-            'success' => true
-        ], 200);
     }
+
 
     /**
      * Remove the specified resource from storage.
      * @param \App\Models\Client $client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $client)
+    public function destroy($id)
     {
-        if ( $client->delete() ) {
+        $post = Client::where('username', '=', $id)->delete();
+        if ($post === 0) {
             return response()->json([
-                'message' => 'Success'
-            ], 204);
+                'status' => true,
+                'message' => "Client not found!"
+            ], 400);
+        } else {
+            return response()->json([
+                'status' => true,
+                'message' => "Client deleted successfully!",
+                'post' => $post
+            ], 201);
         }
-        return response()->json([
-            'message' => 'Not found'
-        ], 404);
 
     }
 }
